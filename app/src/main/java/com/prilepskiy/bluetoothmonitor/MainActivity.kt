@@ -20,7 +20,7 @@ import com.google.androidgamesdk.gametextinput.Listener
 import com.prilepskiy.bluetoothmonitor.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
-    //private var btAdapter: BluetoothAdapter? = null
+    private lateinit var btAdapter: BluetoothAdapter
     private lateinit var binding: ActivityMainBinding
     private lateinit var sManager: SensorManager
 
@@ -28,14 +28,15 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-       // val btManager = getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
-       // btAdapter = btManager.adapter
-
+//
+//        val btManager = getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
+//        btAdapter = btManager.adapter
+//
 //        val pairedDevices: Set<BluetoothDevice>? = if (ActivityCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) btAdapter?.bondedDevices else null
 //        if (pairedDevices!=null)
 //            pairedDevices.forEach {
 //                Log.d(TAG, "Bluetooh_Device: $it")
+//                binding.tvSensor.setText("${it.name} \n ${it.uuids} \n ${it.address}")
 //            }
 
 
@@ -43,6 +44,7 @@ class MainActivity : AppCompatActivity() {
         val sensor = sManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
         val sListener = object : SensorEventListener {
             override fun onSensorChanged(sEvent: SensorEvent?) {
+                Log.d(TAG, "Sensor_Device: ${sEvent?.sensor}")
               binding.tvSensor.setText( "X: ${sEvent?.values?.get(0)}\nY: ${sEvent?.values?.get(1)}\nZ: ${sEvent?.values?.get(2)}")
             }
 
